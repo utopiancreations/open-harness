@@ -57,7 +57,7 @@ Before writing a single line of code, Open Harness invokes a 4-pass multi-role p
 ### Installation
 ```bash
 # 1. Clone repository
-git clone https://github.com/YOUR_USERNAME/open-harness.git
+git clone https://github.com/utopiancreations/open-harness.git
 cd open-harness
 
 # 2. Install dependencies
@@ -89,7 +89,7 @@ git init
 git add .
 git commit -m "feat: initial open harness release with dual-agent architecture & milestone matrix"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/open-harness.git
+git remote add origin https://github.com/utopiancreations/open-harness.git
 git push -u origin main
 ```
 
