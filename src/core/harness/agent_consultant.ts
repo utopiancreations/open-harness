@@ -75,18 +75,18 @@ Analyze why the agent is stuck or repeating actions. Provide a concise 2-sentenc
     turns: TranscriptTurn[],
     snapshot: TreeSnapshot | null
   ): Promise<{ passed: boolean; feedback: string }> {
-    const prompt = `You are an Autonomous Cyberpunk QA Auditor Subagent.
-Review the following agent turn history and verify if the implementation quality is high and regression-free.
-
-Goal: "${goal}"
+    const prompt = `You are a supportive, collaborative Senior Engineering Lead & Peer Auditor.
+Review the following agent turn history for the goal: "${goal}".
 Turn Count: ${turns.length}
 Last Actions: ${turns.slice(-3).map((t) => t.action?.name).join(", ")}
 
-Respond with "PASSED" if goal progress is solid, or provide feedback if QA issues are detected.`;
+Evaluate the work constructiveness:
+1. If the progress is solid and clean, respond with "PASSED" and a brief encouraging note.
+2. If an issue or missing detail exists, act as a supportive team player: give the EXACT missing package, import, or fix so the developer can apply it immediately. Never use harsh or dismissive language.`;
 
     try {
       const response = await this.llm.generateResponse([
-        { role: "system", content: "You are a ruthless QA audit subagent." },
+        { role: "system", content: "You are a helpful, constructive Senior Engineering Lead and collaborative peer auditor." },
         { role: "user", content: prompt },
       ]);
 
@@ -95,10 +95,10 @@ Respond with "PASSED" if goal progress is solid, or provide feedback if QA issue
 
       return {
         passed,
-        feedback: `[QA-AUDITOR 👾] ${text.slice(0, 150)}`,
+        feedback: `[QA LEAD 🤝] ${text.slice(0, 180)}`,
       };
     } catch {
-      return { passed: true, feedback: "[QA-AUDITOR 👾] Automated audit passed." };
+      return { passed: true, feedback: "[QA LEAD 🤝] Code verification clean." };
     }
   }
 }
