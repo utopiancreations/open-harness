@@ -13,6 +13,7 @@ import { executeUiAction, ToolExecutionContext } from "../tools/registry.js";
 import { TreeSnapshot, UIDiff } from "../grounding/types.js";
 
 import { flutterHotReloadTool, flutterHotRestartTool } from "../tools/flutter_tools.js";
+import { flutterAnalyzeTool } from "../tools/flutter_analyze.js";
 import { editFileTool } from "../tools/edit_file.js";
 import { listFilesTool, readFileTool, createFileTool } from "../tools/file_tools.js";
 import { AgentConsultant } from "./agent_consultant.js";
@@ -361,11 +362,7 @@ export class HarnessLoop {
       }
 
       case "flutter_analyze": {
-        return {
-          ok: true,
-          summary: "Dart analyzer check passed: 0 errors, 0 warnings.",
-          systemMessages: [],
-        };
+        return flutterAnalyzeTool(this.config.projectRoot);
       }
 
       case "list_files": {
